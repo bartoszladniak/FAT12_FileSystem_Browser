@@ -42,7 +42,7 @@ struct root_directory * open(char * name){
     short found = 0;
     while((current_directory+i)->first_character)
     {
-        //Rozciaganie tekstu (filename) na format FAT
+        //Change size of string (filename) to FAT-length format
         if((current_directory+i)->first_character == name[0] && strcmp(new_name+1, (current_directory+i)->filename)==0)
         {
             found = 1;
@@ -169,7 +169,7 @@ size_t readblock(void* buffer, uint32_t first_block, size_t block_count){
     file = fopen( filename , "rb");
     if(!file)
         return 0;
-    //W przypadku pierwszego wywolania
+    //In case of first start:
     if(data == NULL)
     {
             data = malloc(sizeof(struct fat_data));
@@ -195,7 +195,7 @@ size_t readblock(void* buffer, uint32_t first_block, size_t block_count){
             }
     }
     if(block_count==0)
-        return 1;//pierwsze wywolanie moze byc puste
+        return 1;//first execution may be empty
 
     if(!buffer ||  block_count == 0 || !data ) // W przypadku 'blednych' danych dane dysku zostana wczytane przy pierwszym wywolaniu.
     {
@@ -675,7 +675,7 @@ void free_data(){
         free(data);
 }
 
-//Info
+//Info about root
 void rootinfo(){
     if(data){
         int entries = 0;

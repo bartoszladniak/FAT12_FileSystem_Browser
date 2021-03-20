@@ -8,12 +8,13 @@ int main(int argc, char **argv)
     if(argc!=2)
         return 0;
     filename = *(argv+1);
-    if(!readblock(NULL, 0,0)) { //Wczytanie disk data
+    //Reading disk data
+    if(!readblock(NULL, 0,0)) {
         printf("Volume doesn't exist or it is broken!");
         return 1;
     }
     printf("Loading FAT Volume: %s, %s\n",get_volume_name() ,get_oem_name());
-    //Ładowanie FAT1, FAT2, ROOT,FS
+    //Loading FAT1, FAT2, ROOT,FS
     if(loadMEM())
     {
         printf("ERROR: Couldn't load FAT structures: Fat arrays");
@@ -25,7 +26,7 @@ int main(int argc, char **argv)
         free_data();
         return 3;
     }
-    //LOAD ROOT
+    //Loading root directory
       struct root_directory * ROOT = (struct root_directory *)FileStructure.root_dir;
 
 //    ___________________________USER INTERFACE________________________________
